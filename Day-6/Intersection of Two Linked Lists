@@ -1,0 +1,57 @@
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+
+*****************************************************************/
+int getDifference(Node* head1,Node* head2) {
+     int len1 = 0,len2 = 0;
+        while(head1 != NULL || head2 != NULL) {
+            if(head1 != NULL) {
+                ++len1; head1 = head1->next;
+            }
+            if(head2 != NULL) {
+                ++len2; head2 = head2->next;
+            }
+            
+        }
+        return len1-len2;//if difference is neg-> length of list2 > length of list1 else vice-versa
+}
+
+
+Node* findIntersection(Node *firstHead, Node *secondHead)
+{
+    //Write your code here
+    int diff = getDifference(firstHead,secondHead);
+        if(diff < 0) 
+            while(diff++ != 0) secondHead = secondHead->next; 
+        else while(diff-- != 0) firstHead = firstHead->next;
+        while(firstHead != NULL) {
+            if(firstHead == secondHead) return firstHead;
+            secondHead = secondHead->next;
+            firstHead = firstHead->next;
+        }
+        return firstHead;
+}
+ 
